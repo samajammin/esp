@@ -96,6 +96,24 @@ export interface SmallGrantsFormData extends CaptchaForm {
   repeatApplicant: string; // SF API: Repeat_Applicant__c
   progress: string; // SF API: Progress__c
   otherFunding: string; // SF API: Other_Funding__c
+}
+
+export interface CommunityEventsFormData extends CaptchaForm {
+  // General
+  firstName: string; // SF API: FirstName
+  lastName: string; // SF API: LastName
+  email: string; // SF API: Email
+  individualOrTeam: IndividualOrTeam; // SF API: Individual_or_Team__c
+  company: string; // SF API: Company
+  city: string; // SF API: npsp__CompanyCity__c
+  country: Country; // SF API: npsp__CompanyCountry__c
+  website: string; // SF API: Website
+  twitter: string; // SF API: Twitter__c
+  projectCategory: ProjectCategory; // SF API: Category__c // TODO: do we need it?
+  individualOrTeamSummary: string; // SF API: Team_Profile__c
+  howDidYouHearAboutESP: ReferralSource; // SF API: Referral_Source__c
+  referrals: string; // SF API: Referrals__c
+  additionalInfo: string; // SF API: Additional_Information__c
   // Event specific
   eventName: string; // SF API: Project_Name__c
   eventDate: Date; // SF API: Sponsorship_Date__c
