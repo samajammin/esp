@@ -481,6 +481,9 @@ export type Frontmatter = {
   metaTitle: string;
   metaDescription: string;
   metaImage: string;
+  isClosed: boolean;
+  // Special section always shown at the top of the page
+  hasSummary: boolean;
 };
 
 /**

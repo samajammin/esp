@@ -1,10 +1,11 @@
 import { ReactNode } from 'react';
 import { Box, Flex, Stack } from '@chakra-ui/react';
 
-import { PageMetadata } from '../UI';
+import { BannerApplicationClosed, PageMetadata } from '../UI';
 import { MdSidebar } from '../UI/md/MdSidebar';
 
 import type { Frontmatter, ToCNodeEntry, TocNodeType } from '../../types';
+import { MARKDOWN_SUMMARY_ID } from '../../constants';
 
 type LayoutProps = {
   children: ReactNode;
@@ -12,8 +13,12 @@ type LayoutProps = {
   tocNodeItems: TocNodeType[];
 };
 
+const summaryTocItem = { title: 'Summary', url: `#${MARKDOWN_SUMMARY_ID}` };
+
 export const MdLayout = ({ children, frontmatter, tocNodeItems }: LayoutProps) => {
-  const { metaTitle, metaDescription, metaImage } = frontmatter;
+  const { metaTitle, metaDescription, metaImage, isClosed, hasSummary } = frontmatter;
+
+  const tocItems = hasSummary ? [summaryTocItem, ...tocNodeItems] : tocNodeItems;
 
   return (
     <Stack>
@@ -23,12 +28,14 @@ export const MdLayout = ({ children, frontmatter, tocNodeItems }: LayoutProps) =
         <Stack spacing={10} mb={8} px={{ base: 5, md: 0 }} py={{ base: 3, md: 12 }}>
           <Flex>
             <MdSidebar
-              sidebarLinks={tocNodeItems
+              sidebarLinks={tocItems
                 .filter((item): item is ToCNodeEntry => !('items' in item))
                 .map(item => ({ text: item.title || '', href: item.url || '' }))}
             />
 
             <Box w={{ lg: '70%' }} px={{ md: 20 }} pr={{ lg: 12 }}>
+              {isClosed && <BannerApplicationClosed mb={12} />}
+
               <Flex gap={6} direction='column'>
                 {children}
               </Flex>
