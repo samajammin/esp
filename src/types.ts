@@ -1,4 +1,6 @@
 import { NextApiRequest } from 'next';
+import type { Options } from 'mdast-util-toc';
+
 import {
   PROJECT_GRANTS_PROJECT_CATEGORY_OPTIONS,
   APPLYING_AS_OPTIONS,
@@ -478,3 +480,28 @@ export interface PSESponsorshipsNextApiRequest extends NextApiRequest {
     additionalInfo: string;
   };
 }
+
+export type Frontmatter = {
+  metaTitle: string;
+  metaDescription: string;
+  metaImage: string;
+};
+
+/**
+ * Table of contents
+ */
+export type ToCNodeEntry = {
+  url?: string;
+  title?: string;
+};
+
+export type TocNodeType =
+  | ToCNodeEntry
+  | {
+      items: TocNodeType[];
+    };
+
+export type IRemarkTocOptions = {
+  maxDepth?: Options['maxDepth'];
+  callback: (toc: TocNodeType) => void;
+};
